@@ -87,3 +87,26 @@ def place_order(user_id, order_type, amount, price, cryptocurrency):
     conn.commit()
     conn.close()
     return f"{order_type.capitalize()} order for {amount} {cryptocurrency} at ${price} placed successfully."
+
+# Execute a trade
+def execute_trade(user_id):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('SELECT * FROM orders WHERE user_id != ? ORDER BY RANDOM() LIMIT 1', (user_id,))
+    matching_order = c.fetchone()
+
+    if not matching_order:
+        conn.close()
+        return "No matching orders found."
+
+    trade_amount = matching_order['amount']
+    trade_price = matching_order['price']
+    trade_total = trade_amount * trade_price
+    trade_type = "buy" if matching_order['order_type'] == "sell" else "sell"
+
+    c.execute('INSERT INTO trades (user_id, trade_amount, price, total, trade_type) VALUES (?, ?, ?, ?, ?)', 
+              (user_id, trade_amount, trade_price, trade_total, trade_type))
+    c.execute('DELETE FROM orders WHERE id = ?', (matching_order['id'],))
+    conn.commit()
+    conn.close()
+    return f"Trade executed: {trade_type.capitalize()} {trade_amount} at ${trade_price}. Total: ${trade_total}."
