@@ -77,3 +77,13 @@ def withdraw_funds(user_id, amount):
         return f"Withdrew {amount} from your account."
     conn.close()
     return "Insufficient balance."
+
+# Place an order
+def place_order(user_id, order_type, amount, price, cryptocurrency):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('INSERT INTO orders (user_id, order_type, amount, price, cryptocurrency) VALUES (?, ?, ?, ?, ?)', 
+              (user_id, order_type, amount, price, cryptocurrency))
+    conn.commit()
+    conn.close()
+    return f"{order_type.capitalize()} order for {amount} {cryptocurrency} at ${price} placed successfully."
