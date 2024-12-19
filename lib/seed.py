@@ -39,3 +39,21 @@ def seed_data():
         (2, 'withdrawal', 500.0),
         (3, 'deposit', 2000.0)
     ''')
+
+    # Seed wallet_transactions table
+    c.execute('''
+        INSERT INTO wallet_transactions (user_id, amount, transaction_type)
+        VALUES
+        (1, 1000.0, 'deposit'),
+        (2, -500.0, 'withdrawal'),
+        (3, 2000.0, 'deposit')
+    ''')
+
+    conn.commit()
+    conn.close()
+
+    print("Database seeded successfully.")
+
+if __name__ == '__main__':
+    create_tables()  # Ensure tables exist before seeding
+    seed_data()
