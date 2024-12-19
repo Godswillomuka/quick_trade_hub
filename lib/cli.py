@@ -1,5 +1,3 @@
-# 
-
 from helpers import register_user, login_user, deposit_funds, withdraw_funds, execute_trade, view_account_info, place_order
 from models import create_tables
 
@@ -39,28 +37,3 @@ def logged_in_menu(user):
             break
         else:
             print("Invalid option. Please choose again.")
-
-def main():
-    create_tables()  # Ensure the tables exist before anything else
-
-    while True:
-        print("\nWelcome to Quick Trade Hub!")
-        print("1. Register")
-        print("2. Login")
-        print("3. Exit")
-        choice = input("Choose an option: ")
-
-        if choice == '1':
-            register_user()
-        elif choice == '2':
-            user = login_user()
-            if user:
-                logged_in_menu(user)
-        elif choice == '3':
-            print("Goodbye!")
-            break
-        else:
-            print("Invalid choice! Please select 1, 2, or 3.")
-
-if __name__ == "__main__":
-    main()
