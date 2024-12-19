@@ -49,3 +49,31 @@ def view_account_info(user_id):
     if user:
         return f"Account Info: Email - {user['email']}, Username - {user['username']}, Balance - {user['balance']}"
     return "User not found."
+
+# Deposit funds
+def deposit_funds(user_id, amount):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('UPDATE users SET balance = balance + ? WHERE id = ?', (amount, user_id))
+    c.execute('INSERT INTO account_activity (user_id, activity_type, amount) VALUES (?, ?, ?)', (user_id, 'deposit', amount))
+    c.execute('INSERT INTO wallet_transactions (user_id, amount, transaction_type) VALUES (?, ?, ?)', (user_id, amount, 'deposit'))
+    conn.commit()
+    conn.close()
+    return f"Deposited {amount} into your account."
+
+# Withdraw funds
+def withdraw_funds(user_id, amount):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('SELECT balance FROM users WHERE id = ?', (user_id,))
+    balance = c.fetchone()['balance']
+
+    if balance >= amount:
+        c.execute('UPDATE users SET balance = balance - ? WHERE id = ?', (amount, user_id))
+        c.execute('INSERT INTO account_activity (user_id, activity_type, amount) VALUES (?, ?, ?)', (user_id, 'withdrawal', amount))
+        c.execute('INSERT INTO wallet_transactions (user_id, amount, transaction_type) VALUES (?, ?, ?)', (user_id, amount, 'withdrawal'))
+        conn.commit()
+        conn.close()
+        return f"Withdrew {amount} from your account."
+    conn.close()
+    return "Insufficient balance."
