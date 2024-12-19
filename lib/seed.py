@@ -13,3 +13,12 @@ def seed_data():
         ('bob@example.com', 'bob', 'password2', 3000.0),
         ('charlie@example.com', 'charlie', 'password3', 7000.0)
     ''')
+
+     # Seed orders table
+    c.execute('''
+        INSERT INTO orders (user_id, order_type, amount, price, cryptocurrency)
+        VALUES
+        (1, 'buy', 0.5, 30000.0, 'BTC'),
+        (2, 'sell', 1.0, 28000.0, 'ETH'),
+        (3, 'buy', 2.0, 1500.0, 'ETH')
+    ''')
