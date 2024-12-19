@@ -37,3 +37,15 @@ def login_user():
     else:
         print("Invalid email or password. Try again.")
         return None
+    
+# View user account info
+def view_account_info(user_id):
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute('SELECT * FROM users WHERE id = ?', (user_id,))
+    user = c.fetchone()
+    conn.close()
+
+    if user:
+        return f"Account Info: Email - {user['email']}, Username - {user['username']}, Balance - {user['balance']}"
+    return "User not found."
