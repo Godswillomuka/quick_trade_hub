@@ -22,3 +22,11 @@ def seed_data():
         (2, 'sell', 1.0, 28000.0, 'ETH'),
         (3, 'buy', 2.0, 1500.0, 'ETH')
     ''')
+
+ # Seed trades table
+    c.execute('''
+        INSERT INTO trades (user_id, buy_order_id, sell_order_id, trade_amount, price, total, trade_type)
+        VALUES
+        (1, 1, 2, 0.5, 29000.0, 14500.0, 'buy'),
+        (2, 3, 2, 1.0, 1500.0, 1500.0, 'sell')
+    ''')
