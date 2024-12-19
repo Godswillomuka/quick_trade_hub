@@ -40,3 +40,10 @@ def logged_in_menu(user):
 
 def main():
     create_tables() 
+
+while True:
+        print("\nWelcome to Quick Trade Hub!")
+        print("1. Register")
+        print("2. Login")
+        print("3. Exit")
+        choice = input("Choose an option: ")
