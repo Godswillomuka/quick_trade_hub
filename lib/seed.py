@@ -30,3 +30,12 @@ def seed_data():
         (1, 1, 2, 0.5, 29000.0, 14500.0, 'buy'),
         (2, 3, 2, 1.0, 1500.0, 1500.0, 'sell')
     ''')
+
+     # Seed account_activity table
+    c.execute('''
+        INSERT INTO account_activity (user_id, activity_type, amount)
+        VALUES
+        (1, 'deposit', 1000.0),
+        (2, 'withdrawal', 500.0),
+        (3, 'deposit', 2000.0)
+    ''')
