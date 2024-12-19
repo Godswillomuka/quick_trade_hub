@@ -36,3 +36,20 @@ def create_tables():
             FOREIGN KEY (user_id) REFERENCES users (id)
         )
     ''')
+
+# Trades table
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS trades (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            buy_order_id INTEGER,
+            sell_order_id INTEGER,
+            trade_amount REAL NOT NULL,
+            price REAL NOT NULL,
+            total REAL NOT NULL,
+            trade_type TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id),
+            FOREIGN KEY (buy_order_id) REFERENCES orders (id),
+            FOREIGN KEY (sell_order_id) REFERENCES orders (id)
+        )
+    ''')
