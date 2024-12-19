@@ -23,3 +23,16 @@ def create_tables():
             balance REAL DEFAULT 0.0
         )
     ''')
+
+    # Orders table
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS orders (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            order_type TEXT NOT NULL,
+            amount REAL NOT NULL,
+            price REAL NOT NULL,
+            cryptocurrency TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id)
+        )
+    ''')
