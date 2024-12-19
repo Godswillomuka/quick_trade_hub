@@ -75,3 +75,9 @@ def create_tables():
             FOREIGN KEY (user_id) REFERENCES users (id)
         )
     ''')
+
+    conn.commit()
+    conn.close()
+
+if __name__ == '__main__':
+    create_tables()  # Create tables when this file is run
