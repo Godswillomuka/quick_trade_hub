@@ -37,3 +37,6 @@ def logged_in_menu(user):
             break
         else:
             print("Invalid option. Please choose again.")
+
+def main():
+    create_tables() 
