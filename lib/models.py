@@ -53,3 +53,14 @@ def create_tables():
             FOREIGN KEY (sell_order_id) REFERENCES orders (id)
         )
     ''')
+
+# Account Activity table (for tracking deposits and withdrawals)
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS account_activity (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            activity_type TEXT NOT NULL,
+            amount REAL NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id)
+        )
+    ''')
