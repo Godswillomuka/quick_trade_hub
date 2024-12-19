@@ -64,3 +64,14 @@ def create_tables():
             FOREIGN KEY (user_id) REFERENCES users (id)
         )
     ''')
+
+ # Wallet Transactions table (for fund transactions)
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS wallet_transactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            amount REAL NOT NULL,
+            transaction_type TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id)
+        )
+    ''')
